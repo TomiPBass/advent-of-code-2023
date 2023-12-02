@@ -1,0 +1,28 @@
+{
+    "name": "advent-of-code",
+    "version": "1.0.0",
+    "description": "Advent of code for the year 2023",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yourusername/your-repo.git"
+    },
+    "keywords": [
+        "node",
+        "javascript",
+        "my-project"
+    ],
+    "author": "Your Name",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/yourusername/your-repo/issues"
+    },
+    "homepage": "https://github.com/yourusername/your-repo#readme",
+    "dependencies": {
+        "typescript": "^5.3.2"
+    }
+}
