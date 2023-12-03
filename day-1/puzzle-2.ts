@@ -1007,6 +1007,8 @@ xtwone3four
 zoneight234
 7pqrstsixteen`
 
+// !Disclaimer: I know this is a mess, but it was 2 in the morning so don't judge
+
 const intStrs = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'] as const
 type Digits = typeof intStrs[number]
 

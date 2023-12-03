@@ -22,7 +22,7 @@
         "url": "https://github.com/yourusername/your-repo/issues"
     },
     "homepage": "https://github.com/yourusername/your-repo#readme",
-    "dependencies": {
+    "devDependencies": {
         "typescript": "^5.3.2"
     }
 }

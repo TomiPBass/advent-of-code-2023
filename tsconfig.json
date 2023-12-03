@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
       "rootDir": ".",
-      "sourceMap": true,
       "declaration": false,
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
@@ -9,10 +8,10 @@
       "experimentalDecorators": true,
       "importHelpers": true,
       "esModuleInterop": true,
-      "target": "es2015",
-      "module": "esnext",
+      "target": "es5",
+      "module": "CommonJS",
       "lib": [
-          "es2017",
+          "ES2017",
           "dom"
       ],
       "skipLibCheck": true,
