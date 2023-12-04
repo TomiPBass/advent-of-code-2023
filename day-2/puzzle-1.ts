@@ -1,4 +1,4 @@
-import { inputDayTwo } from "./input";
+import { inputDayTwo } from "./input.js";
 
 type Set = { blue: number; red: number; green: number; }
 const rules: Set = { blue: 14, red: 12, green: 13 };

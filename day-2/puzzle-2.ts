@@ -1,4 +1,4 @@
-import { inputDayTwo } from "./input";
+import { inputDayTwo } from "./input.js";
 import { parseGameInput } from "./puzzle-1";
 
 type Color = 'blue' | 'red' | 'green';

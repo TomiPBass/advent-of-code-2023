@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var input_1 = require("./input");
+var input_js_1 = require("./input.js");
 var puzzle_1_1 = require("./puzzle-1");
 var sumOfAllThePowersOfSets = function (input) {
     return (0, puzzle_1_1.parseGameInput)(input).reduce(function (totalPower, game) {
@@ -14,4 +14,4 @@ var sumOfAllThePowersOfSets = function (input) {
         return totalPower + Object.values(maximums).reduce(function (prod, max) { return prod * max; }, 1);
     }, 0);
 };
-console.log(sumOfAllThePowersOfSets(input_1.inputDayTwo));
+console.log(sumOfAllThePowersOfSets(input_js_1.inputDayTwo));

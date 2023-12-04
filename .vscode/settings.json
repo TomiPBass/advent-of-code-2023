@@ -1,0 +1,25 @@
+{
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.preferences.importModuleSpecifier": "project-relative",
+    "emmet.includeLanguages": {
+        "ejs": "html"
+    },
+    "css.lint.unknownAtRules": "ignore",
+    "editor.formatOnSave": true,
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "files.associations": {
+        ".env.local": "env",
+        ".local.env": "env"
+    },
+    "git.allowNoVerifyCommit": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.exclude": {
+        "**/.git": false
+    }
+}

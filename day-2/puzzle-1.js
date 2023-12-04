@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sumAllTheIdsOfPossibleGames = exports.parseGameInput = void 0;
-var input_1 = require("./input");
+var input_js_1 = require("./input.js");
 var rules = { blue: 14, red: 12, green: 13 };
 var parseGameInput = function (input) {
     return input.split('\n').map(function (gameString) {
@@ -29,4 +29,4 @@ var sumAllTheIdsOfPossibleGames = function (input, rules) {
         .reduce(function (acc, game) { return acc + game.id; }, 0);
 };
 exports.sumAllTheIdsOfPossibleGames = sumAllTheIdsOfPossibleGames;
-console.log((0, exports.sumAllTheIdsOfPossibleGames)(input_1.inputDayTwo, rules));
+console.log((0, exports.sumAllTheIdsOfPossibleGames)(input_js_1.inputDayTwo, rules));

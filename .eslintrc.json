@@ -1,0 +1,122 @@
+{
+    "root": true,
+    "ignorePatterns": ["**/*"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@nx",
+        "jest",
+        "@typescript-eslint/eslint-plugin",
+        "unicorn",
+        "import"
+    ],
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/typescript"
+    ],
+    "overrides": [
+        {
+            "files": "*.json",
+            "parser": "jsonc-eslint-parser",
+            "rules": {
+                "@typescript-eslint/no-floating-promises": "off"
+            }
+        },
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "rules": {
+                "@nx/enforce-module-boundaries": [
+                    "error",
+                    {
+                        "enforceBuildableLibDependency": true,
+                        "allow": [],
+                        "depConstraints": [
+                            {
+                                "sourceTag": "*",
+                                "onlyDependOnLibsWithTags": ["*"]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["*.ts", "*.tsx"],
+            "extends": ["plugin:@nx/typescript"],
+            "rules": {
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/no-empty-interface": "off"
+            }
+        },
+        {
+            "files": ["*.js", "*.jsx"],
+            "extends": ["plugin:@nx/javascript"],
+            "rules": {}
+        }
+    ],
+    "rules": {
+        "quotes": ["warn", "single"],
+        "indent": [
+            "warn",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "linebreak-style": "off",
+        "import/extensions": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-floating-promises": [
+            "warn",
+            {
+                "ignoreVoid": true
+            }
+        ],
+        "import/no-unresolved": "error",
+        "prettier/prettier": "warn",
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error", "dir", "debug", "info"]
+            }
+        ],
+        "jest/no-focused-tests": "warn",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": ".",
+                        "message": "Imports from barrel files inside the same library not allowed."
+                    },
+                    {
+                        "name": "..",
+                        "message": "Imports from barrel files inside the same library not allowed."
+                    }
+                ]
+            }
+        ],
+        "unicorn/filename-case": [
+            "error",
+            {
+                "case": "kebabCase",
+                "ignore": ["README.md", "^\\d+-.+\\.js$"]
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {
+                "project": "tsconfig.json"
+            }
+        }
+    }
+}
