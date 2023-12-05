@@ -1,28 +1,25 @@
 {
     "compilerOptions": {
-      "rootDir": ".",
-      "declaration": false,
-      "moduleResolution": "node",
-      "emitDecoratorMetadata": true,
-      "checkJs": true,
-      "experimentalDecorators": true,
-      "importHelpers": true,
-      "esModuleInterop": true,
-      "target": "es5",
-      "module": "CommonJS",
-      "lib": [
-          "ES2017",
-          "dom"
-      ],
-      "skipLibCheck": true,
-      "skipDefaultLibCheck": true,
-      "noImplicitThis": true,
+        "rootDir": ".",
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "checkJs": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
+        "target": "es5",
+        "module": "CommonJS",
+        "lib": ["ESNext", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "noImplicitThis": true
     },
     "include": [
-      "**/*"                                 // Include all files in the src folder
+        "**/*" // Include all files in the src folder
     ],
     "exclude": [
-      "node_modules",                            // Exclude the node_modules folder
-      "**/*.spec.ts"                             // Exclude test files
+        "node_modules", // Exclude the node_modules folder
+        "**/*.spec.ts" // Exclude test files
     ]
-  }
+}
