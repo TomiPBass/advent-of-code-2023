@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_1 = require("./input");
+var start = new Date().getTime();
 var inputArray = input_1.testingInput.split('\n');
 var winningCounts = [];
 inputArray.forEach(function (line) {
@@ -38,3 +39,5 @@ inputArray.forEach(function (line) {
     winningCounts.push(winningCount);
 });
 console.log('final count', winningCounts.reduce(function (a, b) { return a + b; }, 0));
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));

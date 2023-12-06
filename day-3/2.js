@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_js_1 = require("./input.js");
 var utils_js_1 = require("./utils.js");
+var start = new Date().getTime();
 var symbols = [];
 var numbers = [];
 var arrayOfLines = input_js_1.input.split('\n');
@@ -31,43 +32,43 @@ var parseInput = function (arrayOfLines) {
         });
     });
 };
-var getArrayOfNumbersNearTheStarSybol = function (symbol) {
+var getArrayOfNumbersNearTheStarSymbol = function (symbol) {
     var symbolAxisPoint = symbol.symbolAxisPoint;
     var symbolX = symbolAxisPoint[0], symbolY = symbolAxisPoint[1];
-    var possibleNearPossitions = [];
+    var possibleNearPositions = [];
     for (var dx = -1; dx <= 1; dx++) {
         for (var dy = -1; dy <= 1; dy++) {
             if (dx !== 0 || dy !== 0) {
-                possibleNearPossitions.push([symbolX + dx, symbolY + dy]);
+                possibleNearPositions.push([symbolX + dx, symbolY + dy]);
             }
         }
     }
-    var arrayOfNumbersNearTheStarSybol = [];
+    var arrayOfNumbersNearTheStarSymbol = [];
     numbers.forEach(function (number) {
         var allAxisPositions = number.allAxisPositions;
-        var isNumberNearTheStarSybol = allAxisPositions.find(function (axisPoint) {
+        var isNumberNearTheStarSymbol = allAxisPositions.find(function (axisPoint) {
             var numberX = axisPoint[0], numberY = axisPoint[1];
-            var isNumberNearTheStarSybol = possibleNearPossitions.find(function (possibleNearPossition) {
-                var possibleNearPossitionX = possibleNearPossition[0], possibleNearPossitionY = possibleNearPossition[1];
-                return (possibleNearPossitionX === numberX &&
-                    possibleNearPossitionY === numberY);
+            var isNumberNearTheStarSymbol = possibleNearPositions.find(function (possibleNearPosition) {
+                var possibleNearPositionX = possibleNearPosition[0], possibleNearPositionY = possibleNearPosition[1];
+                return (possibleNearPositionX === numberX &&
+                    possibleNearPositionY === numberY);
             });
-            if (isNumberNearTheStarSybol)
+            if (isNumberNearTheStarSymbol)
                 return true;
         });
-        if (isNumberNearTheStarSybol) {
-            arrayOfNumbersNearTheStarSybol.push(number.number);
+        if (isNumberNearTheStarSymbol) {
+            arrayOfNumbersNearTheStarSymbol.push(number.number);
         }
     });
-    return arrayOfNumbersNearTheStarSybol;
+    return arrayOfNumbersNearTheStarSymbol;
 };
 parseInput(arrayOfLines);
 var starSymbols = symbols.filter(function (symbol) { return symbol.symbol === '*'; });
 var starsNearNumbersMultiplied = starSymbols.map(function (starSymbol) {
-    var arrayOfNumbersNearTheStarSybol = getArrayOfNumbersNearTheStarSybol(starSymbol);
-    if (arrayOfNumbersNearTheStarSybol.length === 1)
+    var arrayOfNumbersNearTheStarSymbol = getArrayOfNumbersNearTheStarSymbol(starSymbol);
+    if (arrayOfNumbersNearTheStarSymbol.length === 1)
         return 0;
-    var multiplied = arrayOfNumbersNearTheStarSybol.reduce(function (acc, curr) { return acc * curr; }, 1);
+    var multiplied = arrayOfNumbersNearTheStarSymbol.reduce(function (acc, curr) { return acc * curr; }, 1);
     return multiplied;
 });
 var sumOfGearNumbers = starsNearNumbersMultiplied.reduce(function (acc, curr) {
@@ -76,3 +77,5 @@ var sumOfGearNumbers = starsNearNumbersMultiplied.reduce(function (acc, curr) {
     return acc;
 }, 0);
 console.log(sumOfGearNumbers);
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));

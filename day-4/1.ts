@@ -1,5 +1,6 @@
 import { input, testingInput } from './input';
 
+const start = new Date().getTime();
 const inputArray = testingInput.split('\n');
 
 const winningCounts = [];
@@ -43,3 +44,5 @@ console.log(
     'final count',
     winningCounts.reduce((a, b) => a + b, 0),
 );
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

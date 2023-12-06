@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_js_1 = require("./input.js");
 var utils_js_1 = require("./utils.js");
+var start = new Date().getTime();
 var sumOfAllThePowersOfSets = function (input) {
     return (0, utils_js_1.parseGameInput)(input).reduce(function (totalPower, game) {
         var maximums = game.sets.reduce(function (max, set) {
@@ -15,3 +16,5 @@ var sumOfAllThePowersOfSets = function (input) {
     }, 0);
 };
 console.log(sumOfAllThePowersOfSets(input_js_1.input));
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));

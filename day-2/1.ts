@@ -1,6 +1,7 @@
 import { input } from "./input.js";
 import { Set, parseGameInput } from './utils.js';
 
+const start = new Date().getTime();
 const rules: Set = { blue: 14, red: 12, green: 13 };
 
 export const sumAllTheIdsOfPossibleGames = (input: string, rules: Set): number =>
@@ -11,3 +12,5 @@ export const sumAllTheIdsOfPossibleGames = (input: string, rules: Set): number =
         .reduce((acc, game) => acc + game.id, 0);
 
 console.log(sumAllTheIdsOfPossibleGames(input, rules));
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

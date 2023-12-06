@@ -1,6 +1,7 @@
 import { testingInput, input } from './input'
 // !Disclaimer: I know this is a mess, but it was 2 in the morning so don't judge
 
+const start = new Date().getTime();
 const intStrs = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'] as const
 type Digits = typeof intStrs[number]
 
@@ -70,5 +71,5 @@ const clusterArr = allTheCalibrationLines.map((line) => {
 const sumOfAll = clusterArr.reduce((acc, curr) => acc + curr, 0)
 
 console.log(sumOfAll)
-
-export {}
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_1 = require("./input");
 // !Disclaimer: I know this is a mess, but it was 2 in the morning so don't judge
+var start = new Date().getTime();
 var intStrs = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 var intMap = [
     [intStrs[0], 1],
@@ -59,3 +60,5 @@ var clusterArr = allTheCalibrationLines.map(function (line) {
 });
 var sumOfAll = clusterArr.reduce(function (acc, curr) { return acc + curr; }, 0);
 console.log(sumOfAll);
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));

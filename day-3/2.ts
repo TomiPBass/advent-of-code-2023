@@ -1,6 +1,7 @@
 import { input, testingInput } from './input.js';
 import { AxisPoint, SymbolData, parseNumber } from './utils.js';
 
+const start = new Date().getTime();
 type NumberData = {
     allAxisPositions: AxisPoint[];
     number: number;
@@ -41,39 +42,39 @@ const parseInput = (arrayOfLines: string[]) => {
     });
 };
 
-const getArrayOfNumbersNearTheStarSybol = (symbol: SymbolData) => {
+const getArrayOfNumbersNearTheStarSymbol = (symbol: SymbolData) => {
     const { symbolAxisPoint } = symbol;
     const [symbolX, symbolY] = symbolAxisPoint;
-    const possibleNearPossitions = [];
+    const possibleNearPositions = [];
     for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
             if (dx !== 0 || dy !== 0) {
-                possibleNearPossitions.push([symbolX + dx, symbolY + dy]);
+                possibleNearPositions.push([symbolX + dx, symbolY + dy]);
             }
         }
     }
-    const arrayOfNumbersNearTheStarSybol = [] as number[];
+    const arrayOfNumbersNearTheStarSymbol = [] as number[];
     numbers.forEach((number) => {
         const { allAxisPositions } = number;
-        const isNumberNearTheStarSybol = allAxisPositions.find((axisPoint) => {
+        const isNumberNearTheStarSymbol = allAxisPositions.find((axisPoint) => {
             const [numberX, numberY] = axisPoint;
-            const isNumberNearTheStarSybol = possibleNearPossitions.find(
-                (possibleNearPossition) => {
-                    const [possibleNearPossitionX, possibleNearPossitionY] =
-                        possibleNearPossition;
+            const isNumberNearTheStarSymbol = possibleNearPositions.find(
+                (possibleNearPosition) => {
+                    const [possibleNearPositionX, possibleNearPositionY] =
+                        possibleNearPosition;
                     return (
-                        possibleNearPossitionX === numberX &&
-                        possibleNearPossitionY === numberY
+                        possibleNearPositionX === numberX &&
+                        possibleNearPositionY === numberY
                     );
                 },
             );
-            if (isNumberNearTheStarSybol) return true;
+            if (isNumberNearTheStarSymbol) return true;
         });
-        if (isNumberNearTheStarSybol) {
-            arrayOfNumbersNearTheStarSybol.push(number.number);
+        if (isNumberNearTheStarSymbol) {
+            arrayOfNumbersNearTheStarSymbol.push(number.number);
         }
     });
-    return arrayOfNumbersNearTheStarSybol;
+    return arrayOfNumbersNearTheStarSymbol;
 };
 
 parseInput(arrayOfLines);
@@ -81,11 +82,11 @@ parseInput(arrayOfLines);
 const starSymbols = symbols.filter((symbol) => symbol.symbol === '*');
 
 const starsNearNumbersMultiplied = starSymbols.map((starSymbol) => {
-    const arrayOfNumbersNearTheStarSybol =
-        getArrayOfNumbersNearTheStarSybol(starSymbol);
+    const arrayOfNumbersNearTheStarSymbol =
+        getArrayOfNumbersNearTheStarSymbol(starSymbol);
 
-    if (arrayOfNumbersNearTheStarSybol.length === 1) return 0;
-    const multiplied = arrayOfNumbersNearTheStarSybol.reduce(
+    if (arrayOfNumbersNearTheStarSymbol.length === 1) return 0;
+    const multiplied = arrayOfNumbersNearTheStarSymbol.reduce(
         (acc, curr) => acc * curr,
         1,
     );
@@ -98,3 +99,6 @@ const sumOfGearNumbers = starsNearNumbersMultiplied.reduce((acc, curr) => {
 }, 0);
 
 console.log(sumOfGearNumbers);
+
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

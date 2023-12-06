@@ -1,5 +1,6 @@
 import { input } from './input';
 
+const start = new Date().getTime();
 const arrayOfCalibrations = input.split('\n');
 
 const onlyIntArr = arrayOfCalibrations.map((arr) => {
@@ -15,3 +16,5 @@ const sumOfCalibrationValue = mergedFirstAndLastInt.reduce((accumulator, current
   }, 0);
 
 console.log(sumOfCalibrationValue)
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

@@ -1,6 +1,7 @@
 import { input } from "./input.js";
 import { parseGameInput } from "./utils.js";
 
+const start = new Date().getTime();
 type Color = 'blue' | 'red' | 'green';
 
 const sumOfAllThePowersOfSets = (input: string): number =>
@@ -16,3 +17,6 @@ const sumOfAllThePowersOfSets = (input: string): number =>
     }, 0);
 
 console.log(sumOfAllThePowersOfSets(input));
+
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

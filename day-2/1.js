@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sumAllTheIdsOfPossibleGames = void 0;
 var input_js_1 = require("./input.js");
 var utils_js_1 = require("./utils.js");
+var start = new Date().getTime();
 var rules = { blue: 14, red: 12, green: 13 };
 var sumAllTheIdsOfPossibleGames = function (input, rules) {
     return (0, utils_js_1.parseGameInput)(input)
@@ -16,3 +17,5 @@ var sumAllTheIdsOfPossibleGames = function (input, rules) {
 };
 exports.sumAllTheIdsOfPossibleGames = sumAllTheIdsOfPossibleGames;
 console.log((0, exports.sumAllTheIdsOfPossibleGames)(input_js_1.input, rules));
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));

@@ -1,6 +1,7 @@
 import { input, testingInput } from './input.js';
 import { AxisPoint, SymbolData, parseNumber } from './utils.js';
 
+const start = new Date().getTime();
 type NumberData = {
     startingAxisPoint: AxisPoint;
     number: number;
@@ -84,3 +85,6 @@ const sumOfPowerNumbers = powerNumbers.reduce((acc, curr) => {
 }, 0);
 
 console.log(sumOfPowerNumbers);
+
+const end = new Date().getTime();
+console.log(`Execution time: ${end - start} ms`);

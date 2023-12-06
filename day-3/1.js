@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_js_1 = require("./input.js");
 var utils_js_1 = require("./utils.js");
+var start = new Date().getTime();
 var symbols = [];
 var numbers = [];
 var arrayOfLines = input_js_1.input.split('\n');
@@ -71,3 +72,5 @@ var sumOfPowerNumbers = powerNumbers.reduce(function (acc, curr) {
     return acc;
 }, 0);
 console.log(sumOfPowerNumbers);
+var end = new Date().getTime();
+console.log("Execution time: ".concat(end - start, " ms"));
