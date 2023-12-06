@@ -1,25 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var input_js_1 = require("./input.js");
+var utils_js_1 = require("./utils.js");
 var symbols = [];
 var numbers = [];
-var arrayOflines = input_js_1.input.split('\n');
-var parseNumber = function (index, arrayOfChars) {
-    var number = '';
-    var nextStartingIndex = 0;
-    for (var i = index; i < arrayOfChars.length; i++) {
-        if (!isNaN(parseInt(arrayOfChars[i]))) {
-            number += arrayOfChars[i];
-        }
-        else {
-            nextStartingIndex = i;
-            break;
-        }
-    }
-    return { number: number, nextStartingIndex: nextStartingIndex };
-};
-var parseInput = function (arrayOflines) {
-    arrayOflines.forEach(function (line, y) {
+var arrayOfLines = input_js_1.input.split('\n');
+var parseInput = function (arrayOfLines) {
+    arrayOfLines.forEach(function (line, y) {
         var arrayOfChars = line.split('');
         var startingIndex = 0;
         arrayOfChars.forEach(function (char, x) {
@@ -30,7 +17,7 @@ var parseInput = function (arrayOflines) {
                 });
             }
             else if (char !== '.' && x >= startingIndex) {
-                var _a = parseNumber(x, arrayOfChars), number = _a.number, nextStartingIndex = _a.nextStartingIndex;
+                var _a = (0, utils_js_1.parseNumber)(x, arrayOfChars), number = _a.number, nextStartingIndex = _a.nextStartingIndex;
                 startingIndex = nextStartingIndex;
                 var allNumbersPositions = [];
                 for (var i = x; i < x + number.length; i++) {
@@ -74,7 +61,7 @@ var getArrayOfNumbersNearTheStarSybol = function (symbol) {
     });
     return arrayOfNumbersNearTheStarSybol;
 };
-parseInput(arrayOflines);
+parseInput(arrayOfLines);
 var starSymbols = symbols.filter(function (symbol) { return symbol.symbol === '*'; });
 var starsNearNumbersMultiplied = starSymbols.map(function (starSymbol) {
     var arrayOfNumbersNearTheStarSybol = getArrayOfNumbersNearTheStarSybol(starSymbol);

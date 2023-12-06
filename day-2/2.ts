@@ -1,5 +1,5 @@
-import { inputDayTwo } from "./input.js";
-import { parseGameInput } from "./puzzle-1";
+import { input } from "./input.js";
+import { parseGameInput } from "./utils.js";
 
 type Color = 'blue' | 'red' | 'green';
 
@@ -15,4 +15,4 @@ const sumOfAllThePowersOfSets = (input: string): number =>
         return totalPower + Object.values(maximums).reduce((prod, max) => prod * max, 1);
     }, 0);
 
-console.log(sumOfAllThePowersOfSets(inputDayTwo));
+console.log(sumOfAllThePowersOfSets(input));

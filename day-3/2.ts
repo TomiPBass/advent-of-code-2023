@@ -1,38 +1,19 @@
 import { input, testingInput } from './input.js';
-
-type AxisPoint = [number, number];
+import { AxisPoint, SymbolData, parseNumber } from './utils.js';
 
 type NumberData = {
     allAxisPositions: AxisPoint[];
     number: number;
 };
 
-type SymbolData = {
-    symbolAxisPoint: AxisPoint;
-    symbol: string;
-};
-
-const symbols = [] as SymbolData[];
+const symbols = [] as (SymbolData & {symbol: string})[];
 const numbers = [] as NumberData[];
 
-const arrayOflines = input.split('\n');
+const arrayOfLines = input.split('\n');
 
-const parseNumber = (index: number, arrayOfChars: string[]) => {
-    let number: string = '';
-    let nextStartingIndex: number = 0;
-    for (let i = index; i < arrayOfChars.length; i++) {
-        if (!isNaN(parseInt(arrayOfChars[i]))) {
-            number += arrayOfChars[i];
-        } else {
-            nextStartingIndex = i;
-            break;
-        }
-    }
-    return { number, nextStartingIndex };
-};
 
-const parseInput = (arrayOflines: string[]) => {
-    arrayOflines.forEach((line, y) => {
+const parseInput = (arrayOfLines: string[]) => {
+    arrayOfLines.forEach((line, y) => {
         const arrayOfChars = line.split('');
         let startingIndex = 0;
         arrayOfChars.forEach((char, x) => {
@@ -95,7 +76,7 @@ const getArrayOfNumbersNearTheStarSybol = (symbol: SymbolData) => {
     return arrayOfNumbersNearTheStarSybol;
 };
 
-parseInput(arrayOflines);
+parseInput(arrayOfLines);
 
 const starSymbols = symbols.filter((symbol) => symbol.symbol === '*');
 

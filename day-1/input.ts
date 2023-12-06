@@ -1,4 +1,4 @@
-const input = `kjrqmzv9mmtxhgvsevenhvq7
+export const input = `kjrqmzv9mmtxhgvsevenhvq7
 four2tszbgmxpbvninebxns6nineqbqzgjpmpqr
 rkzlnmzgnk91zckqprrptnthreefourtwo
 fouronevzkbnzm6seven47
@@ -999,19 +999,10 @@ onesevenf78threedzvlm1
 xlkdlhlk23four
 8ninejseven5`
 
-const arrayOfCalibrations = input.split('\n');
-
-const onlyIntArr = arrayOfCalibrations.map((arr) => {
-    const everyChar = arr.split('');
-    const onlyInt = everyChar.filter((char) => char.toUpperCase() === char && char.toLowerCase() === char)
-    return onlyInt;
-});
-
-const mergedFirstAndLastInt = onlyIntArr.map((arr) => +(arr[0] + arr[arr.length - 1]))
-
-const sumOfCalibrationValue = mergedFirstAndLastInt.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue;
-  }, 0);
-
-console.log(sumOfCalibrationValue)
-export {}
+export const testingInput = `two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen`
