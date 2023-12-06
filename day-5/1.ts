@@ -1,4 +1,38 @@
-import { input, testingInput } from './input';
+import { input } from './input';
+
+export const testingInput = `seeds: 79 80 81 82 83 84 85 86 87 88 89 90 91 92 55 56 57 58 59 60 61 62 63 64 65 66 67 
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4`;
 
 const start = new Date().getTime();
 const mapNames = [
@@ -11,7 +45,7 @@ const mapNames = [
     'humidity-to-location',
 ] as const;
 
-const lines = input.split('\n');
+const lines = testingInput.split('\n');
 
 type MapName = (typeof mapNames)[number];
 
@@ -76,9 +110,9 @@ const mapAllSets = (maps: number[][]) => {
     return currentSet;
 };
 
-const lastMap = mapAllSets(parsedInput[mapNames[itteration]]);
+export const lastMap = mapAllSets(parsedInput[mapNames[itteration]]);
 const lowestNumber = Math.min(...lastMap);
-console.log('lowest number', lowestNumber);
+// console.log('lowest number', lowestNumber);
 
 const end = new Date().getTime();
-console.log(`Execution time: ${end - start} ms`);
+// console.log(`Execution time: ${end - start} ms`);
