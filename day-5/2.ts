@@ -133,4 +133,4 @@ const end = new Date().getTime();
 console.log(`Execution time: ${end - start} ms`);
 
 // const firstIncorrectResult = `31555917`;
-// const secondCorrectResult = ``;
+// const secondCorrectResult = `24261545`;
