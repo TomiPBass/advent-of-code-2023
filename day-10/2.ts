@@ -1,4 +1,4 @@
-// import { input } from './input';
+import { input } from './input';
 
 const start = new Date().getTime();
 const testingInput = `...........
@@ -33,7 +33,7 @@ L--J.L7...LJS7F-7L7.y
 ....FJL-7.||.||||...
 ....L---J.LJ.LJLJ...`;
 
-const lines = testingInputThree.split('\n');
+const lines = input.split('\n');
 
 type PipeKindNames = 'L' | 'F' | '7' | 'J' | '|' | '-' | '.' | 'S';
 type Directions = 'up' | 'down' | 'left' | 'right';
