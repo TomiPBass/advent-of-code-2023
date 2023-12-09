@@ -16,7 +16,7 @@ const lines = input.split('\n');
 const arrOfHistrories = lines.map((line) =>
     line.split(' ').map((n) => parseInt(n)),
 );
-const nextHistoryValues = [];
+const nextHistoryValues = [] as number[];
 
 arrOfHistrories.forEach((history) => {
     let differences = [] as number[];
@@ -35,7 +35,7 @@ arrOfHistrories.forEach((history) => {
         });
     }
     allTheFirstNumbers.reverse();
-    let nextHistory = [];
+    let nextHistory = [] as number[];
     differences.push(0);
     allTheFirstNumbers.forEach((firstN) => {
         let currentIteration = firstN;
