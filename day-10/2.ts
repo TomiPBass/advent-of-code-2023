@@ -1,4 +1,4 @@
-import { input } from './input';
+// import { input } from './input';
 
 const start = new Date().getTime();
 const testingInput = `...........
@@ -33,7 +33,7 @@ L--J.L7...LJS7F-7L7.y
 ....FJL-7.||.||||...
 ....L---J.LJ.LJLJ...`;
 
-const lines = input.split('\n');
+const lines = testingInputThree.split('\n');
 
 type PipeKindNames = 'L' | 'F' | '7' | 'J' | '|' | '-' | '.' | 'S';
 type Directions = 'up' | 'down' | 'left' | 'right';
@@ -227,69 +227,77 @@ const whileLoopAction = (
         lastCornerDirection?: Directions;
     },
 ): number | Directions => {
-    if (currentPipe.name === options.singleWall) {
+    const {
+        direction: optionsDirection,
+        directionWall,
+        endingCorners,
+        singleWall,
+        startingCorners,
+        lastCornerDirection,
+    } = options;
+    if (currentPipe.name === singleWall) {
         return 1;
     }
-    if (currentPipe.name === options.startingCorners[0]) {
+    if (currentPipe.name === startingCorners[0]) {
         const direction =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'right'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'down'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'left'
                     : 'up';
         return direction;
-    } else if (currentPipe.name === options.startingCorners[1]) {
+    } else if (currentPipe.name === startingCorners[1]) {
         const direction =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'left'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'up'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'right'
                     : 'down';
         return direction;
-    } else if (currentPipe.name === options.directionWall) {
+    } else if (currentPipe.name === directionWall) {
         return 0;
-    } else if (currentPipe.name === options.endingCorners[0]) {
+    } else if (currentPipe.name === endingCorners[0]) {
         const direction =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'right'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'down'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'left'
                     : 'up';
         const secondDirection =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'left'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'up'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'right'
                     : 'down';
-        if (options.lastCornerDirection === direction) return 0;
-        if (options.lastCornerDirection === secondDirection) return 1;
-    } else if (currentPipe.name === options.endingCorners[1]) {
+        if (lastCornerDirection === direction) return 0;
+        if (lastCornerDirection === secondDirection) return 1;
+    } else if (currentPipe.name === endingCorners[1]) {
         const direction =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'left'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'up'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'right'
                     : 'down';
         const secondDirection =
-            options.direction === 'up'
+            optionsDirection === 'up'
                 ? 'right'
-                : options.direction === 'right'
+                : optionsDirection === 'right'
                   ? 'down'
-                  : options.direction === 'down'
+                  : optionsDirection === 'down'
                     ? 'left'
                     : 'up';
-        if (options.lastCornerDirection === direction) return 0;
-        if (options.lastCornerDirection === secondDirection) return 1;
+        if (lastCornerDirection === direction) return 0;
+        if (lastCornerDirection === secondDirection) return 1;
     }
 };
 /*
