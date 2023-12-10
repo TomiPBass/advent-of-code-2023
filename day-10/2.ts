@@ -442,36 +442,41 @@ const findTilesInsideTheLoop = () => {
                     lineIndex,
                     columnIndex,
                 );
-                const numberOfHitWallsLeft = travelAllTheWay(
-                    'left',
-                    lineIndex,
-                    columnIndex,
-                );
-                const numberOfHitWallsUp = travelAllTheWay(
-                    'up',
-                    lineIndex,
-                    columnIndex,
-                );
-                const numberOfHitWallsDown = travelAllTheWay(
-                    'down',
-                    lineIndex,
-                    columnIndex,
-                );
-                if (
-                    numberOfHitWallsDown === 0 ||
-                    numberOfHitWallsUp === 0 ||
-                    numberOfHitWallsLeft === 0 ||
-                    numberOfHitWallsRight === 0
-                )
-                    isInsideTheLoop = false;
-                else if (
-                    numberOfHitWallsLeft % 2 === 1 &&
-                    numberOfHitWallsRight % 2 === 1 &&
-                    numberOfHitWallsUp % 2 === 1 &&
-                    numberOfHitWallsDown % 2 === 1
-                )
+                if (numberOfHitWallsRight === 0) isInsideTheLoop = false;
+                else if (numberOfHitWallsRight % 2 === 1)
                     isInsideTheLoop = true;
-                else isInsideTheLoop = false;
+                else {
+                    const numberOfHitWallsLeft = travelAllTheWay(
+                        'left',
+                        lineIndex,
+                        columnIndex,
+                    );
+                    if (numberOfHitWallsLeft === 0) isInsideTheLoop = false;
+                    else if (numberOfHitWallsLeft % 2 === 1)
+                        isInsideTheLoop = true;
+                    else {
+                        const numberOfHitWallsUp = travelAllTheWay(
+                            'up',
+                            lineIndex,
+                            columnIndex,
+                        );
+                        if (numberOfHitWallsUp === 0) isInsideTheLoop = false;
+                        else if (numberOfHitWallsUp % 2 === 1)
+                            isInsideTheLoop = true;
+                        else {
+                            const numberOfHitWallsDown = travelAllTheWay(
+                                'down',
+                                lineIndex,
+                                columnIndex,
+                            );
+                            if (numberOfHitWallsDown === 0)
+                                isInsideTheLoop = false;
+                            else if (numberOfHitWallsDown % 2 === 1)
+                                isInsideTheLoop = true;
+                            else isInsideTheLoop = false;
+                        }
+                    }
+                }
             }
             if (isInsideTheLoop) {
                 tilesInsideTheLoop.push([lineIndex, columnIndex]);
