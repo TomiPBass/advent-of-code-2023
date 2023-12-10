@@ -1,4 +1,4 @@
-import { input, testingInput } from './input';
+import { input } from './input';
 
 const start = new Date().getTime();
 const mapNames = [
