@@ -89,17 +89,14 @@ type GalaxyCoordinates = {
 
 const [allEmptyColumns, allEmptyLines] = expandEmptySpace();
 
+// Adjust the index of all the extra empty spaces
 const [allEmptyColumns2, allEmptyLines2] = [allEmptyColumns, allEmptyLines].map(
     (array) => array.map((item, index) => item + index),
 );
 
-function drawIntoAConsole() {
-    const linesToDraw = lines.map((line) => line.split('').join(''));
-    console.log(linesToDraw.join('\n'));
-}
-// drawIntoAConsole();
-
+// Increase the number of empty spaces
 const increase = 1000000;
+
 // Find all galaxies
 let idForGalaxy = 1;
 const allGalaxiesCoordinates: GalaxyCoordinates[] = lines
@@ -115,6 +112,9 @@ const allGalaxiesCoordinates: GalaxyCoordinates[] = lines
                     ).length;
                     const newColumnIndex =
                         columnIndex +
+                        // Incread without one to avoid counting the new current column
+                        // Could be done without it but I don't have time to go re-do my previous steps.
+                        // I have actuall work to do lol
                         passedEmptyColumns * (increase - 1) -
                         passedEmptyColumns;
                     const passedEmptyLines = allEmptyLines2.filter(
@@ -133,6 +133,7 @@ const allGalaxiesCoordinates: GalaxyCoordinates[] = lines
             .filter((galaxy) => galaxy);
     })
     .flat();
+
 const shortestDistancesBetweenGalaxies: number[] = [];
 
 // Find shortest distances between galaxies
