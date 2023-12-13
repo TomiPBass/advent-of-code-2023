@@ -83,28 +83,17 @@ const [startingLine, startingColumn]: [number, number] = [
     lines.find((line) => line.includes('S')).indexOf('S'),
 ];
 
-const findPipe = (options?: {
-    coordinates?: [number, number];
-    name?: PipeKindNames;
-}) => {
+const findPipe = (options?: { coordinates?: [number, number]; name?: PipeKindNames }) => {
     if (options?.coordinates) {
-        const pipe = pipes.find(
-            (pipe) =>
-                pipe.name ===
-                lines[options.coordinates[0]]?.[options.coordinates[1]],
-        );
-        if (pipe?.name === 'S')
-            return { name: 'F', directions: pipe?.directions } as Pipe;
+        const pipe = pipes.find((pipe) => pipe.name === lines[options.coordinates[0]]?.[options.coordinates[1]]);
+        if (pipe?.name === 'S') return { name: 'F', directions: pipe?.directions } as Pipe;
         else return pipe;
     }
 
     if (options?.name) return pipes.find((pipe) => pipe.name === options.name);
 };
 
-const includesDirection = (
-    pipe: Pipe,
-    directions: Directions | Directions[],
-) => {
+const includesDirection = (pipe: Pipe, directions: Directions | Directions[]) => {
     if (typeof directions === 'string') {
         return pipe.directions.includes(directions);
     }
@@ -125,17 +114,12 @@ const findStartingPipeKind = () => {
         coordinates: [startingLine + 1, startingColumn],
     });
     if (leftPipe && includesDirection(leftPipe, 'right')) {
-        if (rightPipe && includesDirection(rightPipe, 'left'))
-            return findPipe({ name: '-' });
-        if (upPipe && includesDirection(upPipe, 'down'))
-            return findPipe({ name: 'J' });
-        if (downPipe && includesDirection(downPipe, 'up'))
-            return findPipe({ name: '7' });
+        if (rightPipe && includesDirection(rightPipe, 'left')) return findPipe({ name: '-' });
+        if (upPipe && includesDirection(upPipe, 'down')) return findPipe({ name: 'J' });
+        if (downPipe && includesDirection(downPipe, 'up')) return findPipe({ name: '7' });
     } else if (rightPipe && includesDirection(rightPipe, 'left')) {
-        if (upPipe && includesDirection(upPipe, 'down'))
-            return findPipe({ name: 'L' });
-        if (downPipe && includesDirection(downPipe, 'up'))
-            return findPipe({ name: 'F' });
+        if (upPipe && includesDirection(upPipe, 'down')) return findPipe({ name: 'L' });
+        if (downPipe && includesDirection(downPipe, 'up')) return findPipe({ name: 'F' });
     } else return findPipe({ name: '|' });
 };
 
@@ -191,11 +175,7 @@ const allPipesOnLoop: TravelDirections[] = [];
 const travel = (startingPipe: TravelDirections) => {
     let numberOfPipesTraveled = 0;
     let currentPipe: TravelDirections = startingPipe;
-    while (
-        currentPipe.line !== startingPipe.line ||
-        currentPipe.column !== startingPipe.column ||
-        numberOfPipesTraveled === 0
-    ) {
+    while (currentPipe.line !== startingPipe.line || currentPipe.column !== startingPipe.column || numberOfPipesTraveled === 0) {
         currentPipe = findNextPipe({
             ...currentPipe,
             previousDirection: currentPipe.previousDirection,
@@ -219,75 +199,32 @@ const whileLoopAction = (
         lastCornerDirection?: Directions;
     },
 ): number | Directions => {
-    const {
-        direction,
-        directionWall,
-        endingCorners,
-        singleWall,
-        startingCorners,
-        lastCornerDirection,
-    } = options;
+    const { direction, directionWall, endingCorners, singleWall, startingCorners, lastCornerDirection } = options;
     if (currentPipe.name === singleWall) {
         return 1;
     }
     if (currentPipe.name === startingCorners[0]) {
         const directionCheck =
-            direction === 'up'
-                ? 'right'
-                : direction === 'right'
-                  ? 'down'
-                  : direction === 'down'
-                    ? 'left'
-                    : 'up';
+            direction === 'up' ? 'right' : direction === 'right' ? 'down' : direction === 'down' ? 'left' : 'up';
         return directionCheck;
     } else if (currentPipe.name === startingCorners[1]) {
         const directionCheck =
-            direction === 'up'
-                ? 'left'
-                : direction === 'right'
-                  ? 'up'
-                  : direction === 'down'
-                    ? 'right'
-                    : 'down';
+            direction === 'up' ? 'left' : direction === 'right' ? 'up' : direction === 'down' ? 'right' : 'down';
         return directionCheck;
     } else if (currentPipe.name === directionWall) {
         return 0;
     } else if (currentPipe.name === endingCorners[0]) {
         const directionCheck =
-            direction === 'up'
-                ? 'right'
-                : direction === 'right'
-                  ? 'down'
-                  : direction === 'down'
-                    ? 'left'
-                    : 'up';
+            direction === 'up' ? 'right' : direction === 'right' ? 'down' : direction === 'down' ? 'left' : 'up';
         const secondDirection =
-            direction === 'up'
-                ? 'left'
-                : direction === 'right'
-                  ? 'up'
-                  : direction === 'down'
-                    ? 'right'
-                    : 'down';
+            direction === 'up' ? 'left' : direction === 'right' ? 'up' : direction === 'down' ? 'right' : 'down';
         if (lastCornerDirection === directionCheck) return 0;
         if (lastCornerDirection === secondDirection) return 1;
     } else if (currentPipe.name === endingCorners[1]) {
         const directionCheck =
-            direction === 'up'
-                ? 'left'
-                : direction === 'right'
-                  ? 'up'
-                  : direction === 'down'
-                    ? 'right'
-                    : 'down';
+            direction === 'up' ? 'left' : direction === 'right' ? 'up' : direction === 'down' ? 'right' : 'down';
         const secondDirection =
-            direction === 'up'
-                ? 'right'
-                : direction === 'right'
-                  ? 'down'
-                  : direction === 'down'
-                    ? 'left'
-                    : 'up';
+            direction === 'up' ? 'right' : direction === 'right' ? 'down' : direction === 'down' ? 'left' : 'up';
         if (lastCornerDirection === directionCheck) return 0;
         if (lastCornerDirection === secondDirection) return 1;
     }
@@ -303,11 +240,7 @@ const whileLoopAction = (
             .L--JOL--J.
             .....O.....
 */
-const travelAllTheWay = (
-    direction: Directions,
-    lineIndex: number,
-    columnIndex: number,
-) => {
+const travelAllTheWay = (direction: Directions, lineIndex: number, columnIndex: number) => {
     let numberOfHitWalls = 0;
     let currentPipe = findPipe({
         coordinates: [lineIndex, columnIndex],
@@ -345,10 +278,7 @@ const travelAllTheWay = (
             currentPipe = findPipe({
                 coordinates: [lineIndex, currentIndex],
             });
-            isOnALoop = allPipesOnLoop.some(
-                (pipe) =>
-                    pipe.column === currentIndex && pipe.line === lineIndex,
-            );
+            isOnALoop = allPipesOnLoop.some((pipe) => pipe.column === currentIndex && pipe.line === lineIndex);
             if (currentPipe && isOnALoop)
                 result = whileLoopAction(currentPipe, {
                     direction,
@@ -364,10 +294,7 @@ const travelAllTheWay = (
             currentPipe = findPipe({
                 coordinates: [lineIndex, currentIndex],
             });
-            isOnALoop = allPipesOnLoop.some(
-                (pipe) =>
-                    pipe.column === currentIndex && pipe.line === lineIndex,
-            );
+            isOnALoop = allPipesOnLoop.some((pipe) => pipe.column === currentIndex && pipe.line === lineIndex);
             if (currentPipe && isOnALoop)
                 result = whileLoopAction(currentPipe, {
                     direction,
@@ -383,10 +310,7 @@ const travelAllTheWay = (
             currentPipe = findPipe({
                 coordinates: [currentIndex, columnIndex],
             });
-            isOnALoop = allPipesOnLoop.some(
-                (pipe) =>
-                    pipe.line === currentIndex && pipe.column === columnIndex,
-            );
+            isOnALoop = allPipesOnLoop.some((pipe) => pipe.line === currentIndex && pipe.column === columnIndex);
             if (currentPipe && isOnALoop)
                 result = whileLoopAction(currentPipe, {
                     direction,
@@ -402,10 +326,7 @@ const travelAllTheWay = (
             currentPipe = findPipe({
                 coordinates: [currentIndex, columnIndex],
             });
-            isOnALoop = allPipesOnLoop.some(
-                (pipe) =>
-                    pipe.line === currentIndex && pipe.column === columnIndex,
-            );
+            isOnALoop = allPipesOnLoop.some((pipe) => pipe.line === currentIndex && pipe.column === columnIndex);
             if (currentPipe && isOnALoop)
                 result = whileLoopAction(currentPipe, {
                     direction,
@@ -429,48 +350,24 @@ const findTilesInsideTheLoop = () => {
     lines.forEach((line, lineIndex) => {
         line.split('').forEach((tile, columnIndex) => {
             let isInsideTheLoop: boolean = true;
-            const isPartOfTheLoop = allPipesOnLoop.some(
-                (pipe) =>
-                    pipe.line === lineIndex && pipe.column === columnIndex,
-            );
+            const isPartOfTheLoop = allPipesOnLoop.some((pipe) => pipe.line === lineIndex && pipe.column === columnIndex);
             if (isPartOfTheLoop) isInsideTheLoop = false;
             else {
-                const numberOfHitWallsRight = travelAllTheWay(
-                    'right',
-                    lineIndex,
-                    columnIndex,
-                );
+                const numberOfHitWallsRight = travelAllTheWay('right', lineIndex, columnIndex);
                 if (numberOfHitWallsRight === 0) isInsideTheLoop = false;
-                else if (numberOfHitWallsRight % 2 === 1)
-                    isInsideTheLoop = true;
+                else if (numberOfHitWallsRight % 2 === 1) isInsideTheLoop = true;
                 else {
-                    const numberOfHitWallsLeft = travelAllTheWay(
-                        'left',
-                        lineIndex,
-                        columnIndex,
-                    );
+                    const numberOfHitWallsLeft = travelAllTheWay('left', lineIndex, columnIndex);
                     if (numberOfHitWallsLeft === 0) isInsideTheLoop = false;
-                    else if (numberOfHitWallsLeft % 2 === 1)
-                        isInsideTheLoop = true;
+                    else if (numberOfHitWallsLeft % 2 === 1) isInsideTheLoop = true;
                     else {
-                        const numberOfHitWallsUp = travelAllTheWay(
-                            'up',
-                            lineIndex,
-                            columnIndex,
-                        );
+                        const numberOfHitWallsUp = travelAllTheWay('up', lineIndex, columnIndex);
                         if (numberOfHitWallsUp === 0) isInsideTheLoop = false;
-                        else if (numberOfHitWallsUp % 2 === 1)
-                            isInsideTheLoop = true;
+                        else if (numberOfHitWallsUp % 2 === 1) isInsideTheLoop = true;
                         else {
-                            const numberOfHitWallsDown = travelAllTheWay(
-                                'down',
-                                lineIndex,
-                                columnIndex,
-                            );
-                            if (numberOfHitWallsDown === 0)
-                                isInsideTheLoop = false;
-                            else if (numberOfHitWallsDown % 2 === 1)
-                                isInsideTheLoop = true;
+                            const numberOfHitWallsDown = travelAllTheWay('down', lineIndex, columnIndex);
+                            if (numberOfHitWallsDown === 0) isInsideTheLoop = false;
+                            else if (numberOfHitWallsDown % 2 === 1) isInsideTheLoop = true;
                             else isInsideTheLoop = false;
                         }
                     }
