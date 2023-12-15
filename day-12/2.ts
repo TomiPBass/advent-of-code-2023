@@ -1,16 +1,10 @@
 import { input } from './input';
 
 const start = new Date().getTime();
-const testingInput = `???.### 1,1,3
-.??..??...?##. 1,1,3
-?#?#?#?#?#?#?#? 1,3,1,6
-????.#...#... 4,1,1
-????.######..#####. 1,6,5
-?###???????? 3,2,1`;
 
 type Dataset = [string, number[]];
 
-const lines = testingInput.split('\n');
+const lines = input.split('\n');
 const data: Dataset[] = lines.map((line) => [
     line.split(' ')[0],
     line
@@ -76,17 +70,6 @@ data.forEach((dataset) => {
     allPossibleCombinations.push(combinations);
 });
 
-/*
-#.#.### 1,1,3 -                 #
-.??..??...###. 1,1,3 -          .
-.#.###.#.###### 1,3,1,6 -       #
-####.#...#... 4,1,1 -           .
-????.######..#####. 1,6,5 -     .
-?###???????? 3,2,1 -            BOTH
-
-.#.###.#.###### 1,3,1,6
- */
-
 const extraData = data.map((dataset, i) => {
     const [arrangement, rules] = dataset;
     const currentCombinations = allPossibleCombinations[i];
@@ -110,9 +93,65 @@ const newNumberOfPossibleCombinations = allPossibleCombinations.map((oc, i) => {
     return oc.length * Math.pow(numberOfPossibleExtraCombinations[i], 4);
 });
 
+console.log(newNumberOfPossibleCombinations);
+
 const sum = newNumberOfPossibleCombinations.reduce((a, b) => a + b, 0);
 
 console.log('Sum of all the lengths:', sum);
 
 const end = new Date().getTime();
 console.log(`Execution time: ${end - start} ms`);
+
+/*
+ 2576816
+ 5845851 - volba 2
+ #???#????.????????#? 6,1,3,4
+
+ ? na začátku - 27
+ ? na konci - 22
+
+######.#..###...####.#???#????.????????#?
+######.#...###..####
+######.#....###.####
+######....#.###.####
+######..#.###...####
+######..#..###..####
+######..#...###.####
+######.#..###..####.
+######..#.###..####.
+######.#...###.####.
+######..#..###.####.
+
+???.### 1,1,3
+#.#.###
+
+.??..??...?##. 1,1,3
+..#...#...###.
+..#..#....###.
+.#....#...###.
+.#...#....###.
+
+?#?#?#?#?#?#?#? 1,3,1,6
+.#.###.#.######
+
+????.#...#... 4,1,1
+####.#...#...
+
+????.######..#####. 1,6,5
+...#.######..#####.
+..#..######..#####.
+.#...######..#####.
+#....######..#####.
+
+?###???????? 3,2,1
+.###....##.#
+.###...##..#
+.###...##.#.
+.###..##...#
+.###..##..#.
+.###..##.#..
+.###.##....#
+.###.##...#.
+.###.##..#..
+.###.##.#...
+ */

@@ -79,19 +79,23 @@ function getAllCombinations(dataset: Dataset) {
         const combinationString = combination.join('');
         const isMatch = checkTheArrangement(combinationString, dataset[1]);
         if (isMatch) {
+            console.log(combinationString);
             combinationsCount++;
         }
     }
     return combinationsCount;
 }
 
-let count = 0;
+let count = [];
 data.forEach((dataset) => {
     const combinations = getAllCombinations(dataset);
-    count += combinations;
+    count.push(combinations);
 });
-
-console.log('Sum of all the lengths:', count);
+console.log(count);
+console.log(
+    'Sum of all the lengths:',
+    count.reduce((a, b) => a + b, 0),
+);
 
 const end = new Date().getTime();
 console.log(`Execution time: ${end - start} ms`);
