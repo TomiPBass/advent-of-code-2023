@@ -26,7 +26,7 @@ const testingInput = `???.### 1,1,3
 
 type Dataset = [string, number[]];
 
-const lines = testingInput.split('\n');
+const lines = input.split('\n');
 const data: Dataset[] = lines.map((line) => [
     line.split(' ')[0],
     line
@@ -79,7 +79,6 @@ function getAllCombinations(dataset: Dataset) {
         const combinationString = combination.join('');
         const isMatch = checkTheArrangement(combinationString, dataset[1]);
         if (isMatch) {
-            console.log(combinationString);
             combinationsCount++;
         }
     }
@@ -91,7 +90,6 @@ data.forEach((dataset) => {
     const combinations = getAllCombinations(dataset);
     count.push(combinations);
 });
-console.log(count);
 console.log(
     'Sum of all the lengths:',
     count.reduce((a, b) => a + b, 0),
