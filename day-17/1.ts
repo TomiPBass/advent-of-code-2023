@@ -56,7 +56,7 @@ type Data = {
 type Coordinates = { x: number; y: number; value: number };
 
 type BlockData = Coordinates & {
-    lowest: Data;
+    lowests: Data[];
     backup?: Data;
     visited?: boolean;
 };
@@ -78,10 +78,10 @@ const blocks: BlockData[] = [];
 const visitedBlocks: VisitedBlockData[] = [];
 
 firstMap.forEach((char) => {
-    blocks.push({ ...char, lowest: { direction: 'none', distance: Infinity, stepsInDirection: 0 } });
+    blocks.push({ ...char, lowests: [{ direction: 'none', distance: Infinity, stepsInDirection: 0 }] });
 });
 
-blocks[0].lowest.distance = 0;
+blocks[0].lowests[0].distance = 0;
 
 function checkBlockData(block: BlockData) {
     const unvisitedNeighbours = blocks
@@ -97,49 +97,52 @@ function checkBlockData(block: BlockData) {
         })
         .filter((neighbour) => neighbour);
     unvisitedNeighbours.forEach((neighbour) => {
-        const isSameDirecitonAsLowest = neighbour.direction === block.lowest.direction;
-        const cantUseLowest = isSameDirecitonAsLowest && block.lowest.stepsInDirection === 3;
+        block.lowests.forEach((lowest) => {
+            const isSameDirecitonAsLowest = neighbour.direction === lowest.direction;
+            const cantUseLowest = isSameDirecitonAsLowest && lowest.stepsInDirection === 3;
 
-        const distance = cantUseLowest
-            ? block.backup.distance + neighbour.block.value
-            : block.lowest.distance + neighbour.block.value;
-        const direction = neighbour.direction;
-        const stepsInDirection = cantUseLowest ? 1 : isSameDirecitonAsLowest ? block.lowest.stepsInDirection + 1 : 1;
+            const distance = cantUseLowest
+                ? block.backup.distance + neighbour.block.value
+                : lowest.distance + neighbour.block.value;
+            const direction = neighbour.direction;
+            const stepsInDirection = cantUseLowest ? 1 : isSameDirecitonAsLowest ? lowest.stepsInDirection + 1 : 1;
 
-        // If the direction of neigbour was already used 3 times for the lowest value
-        if (cantUseLowest) {
-            // If the distance is lower than the current lowest distance
-            if (
-                distance < neighbour.block.lowest.distance ||
-                (distance === neighbour.block.lowest.distance && stepsInDirection < neighbour.block.lowest.stepsInDirection)
-            ) {
-                blocks[neighbour.index].lowest = { distance, direction, stepsInDirection };
+            // If the direction of neigbour was already used 3 times for the lowests value
+            if (cantUseLowest) {
+                // If the distance is lower than the current lowests distance
+                if (
+                    distance < lowest.distance ||
+                    (distance === neighbour.block.lowests[0].distance &&
+                        stepsInDirection < neighbour.block.lowests.stepsInDirection)
+                ) {
+                    blocks[neighbour.index].lowests = { distance, direction, stepsInDirection };
+                }
+                // Else, if the distance is lower than the current backup distance or there is no backup
+                else if (
+                    !neighbour.block.backup ||
+                    distance < neighbour.block.backup?.distance ||
+                    (distance === neighbour.block.backup?.distance && stepsInDirection < neighbour.block.backup?.stepsInDirection)
+                ) {
+                    blocks[neighbour.index].backup = { distance, direction, stepsInDirection };
+                }
+            } else {
+                if (stepsInDirection > 3) console.log('ERROR', block);
+                if (
+                    distance < neighbour.block.lowests.distance ||
+                    (distance === neighbour.block.lowests.distance && stepsInDirection < neighbour.block.lowests.stepsInDirection)
+                ) {
+                    // If the distance of the lowests is now 3 steps long
+                    if (stepsInDirection === 3) blocks[neighbour.index].backup = neighbour.block.lowests;
+                    blocks[neighbour.index].lowests = { distance, direction, stepsInDirection };
+                } else if (
+                    !neighbour.block.backup ||
+                    distance < neighbour.block.backup?.distance ||
+                    (distance === neighbour.block.backup?.distance && stepsInDirection < neighbour.block.backup?.stepsInDirection)
+                ) {
+                    blocks[neighbour.index].backup = { distance, direction, stepsInDirection };
+                }
             }
-            // Else, if the distance is lower than the current backup distance or there is no backup
-            else if (
-                !neighbour.block.backup ||
-                distance < neighbour.block.backup?.distance ||
-                (distance === neighbour.block.backup?.distance && stepsInDirection < neighbour.block.backup?.stepsInDirection)
-            ) {
-                blocks[neighbour.index].backup = { distance, direction, stepsInDirection };
-            }
-        } else {
-            if (stepsInDirection > 3) console.log('ERROR', block);
-            if (
-                distance < neighbour.block.lowest.distance ||
-                (distance === neighbour.block.lowest.distance && stepsInDirection < neighbour.block.lowest.stepsInDirection)
-            ) {
-                // If the distance of the lowest is now 3 steps long
-                if (stepsInDirection === 3) blocks[neighbour.index].backup = neighbour.block.lowest;
-                blocks[neighbour.index].lowest = { distance, direction, stepsInDirection };
-            } else if (
-                !neighbour.block.backup ||
-                distance < neighbour.block.backup?.distance ||
-                (distance === neighbour.block.backup?.distance && stepsInDirection < neighbour.block.backup?.stepsInDirection)
-            ) {
-                blocks[neighbour.index].backup = { distance, direction, stepsInDirection };
-            }
-        }
+        });
     });
     visitedBlocks.push({ ...block, visited: true });
 }
@@ -147,7 +150,7 @@ function checkBlockData(block: BlockData) {
 let relativeDistanceFromStart = 0;
 while (blocks.length > 0) {
     const blocksToCheck = blocks.filter((block) => block.x <= relativeDistanceFromStart && block.y <= relativeDistanceFromStart);
-    blocksToCheck.sort((a, b) => a.lowest.distance - b.lowest.distance);
+    blocksToCheck.sort((a, b) => a.lowests.distance - b.lowests.distance);
     blocksToCheck.forEach((block) => {
         checkBlockData(block);
     });
